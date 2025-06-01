@@ -1,4 +1,4 @@
-package com.example.netflex.data.network;
+package com.example.netflex.network;
 
 import com.example.netflex.utils.Constants;
 

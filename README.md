@@ -12,25 +12,26 @@ Netflex – Movie Streaming App (Android + .NET API)  Netflex is a simple movie 
 - Glide (image loading)
 
 ## Project Structure (Android)
+```
 app/
 ├── data/
-│ ├── model/ # Movie, Genre, User, etc.
-│ ├── network/ # ApiService, RetrofitClient
-│ └── repository/ # MovieRepository (calls API)
+│   ├── model/              # Movie, Genre, User, etc.
+│   ├── network/            # ApiService, RetrofitClient
+│   └── repository/         # MovieRepository handles API logic
 │
 ├── ui/
-│ ├── activity/ # MainActivity, DetailActivity, LoginActivity
-│ ├── viewmodel/ # MovieViewModel, AuthViewModel
-│ └── adapter/ # MovieAdapter for RecyclerView
+│   ├── activity/           # MainActivity, MovieDetailActivity, LoginActivity
+│   ├── viewmodel/          # ViewModels for each screen
+│   └── adapter/            # RecyclerView adapters
 │
-├── utils/ # Constants, SessionManager
-├── res/ # Layouts, drawables, strings, etc.
-└── AndroidManifest.xml
+├── utils/                  # Constants, SessionManager, etc.
+└── res/                    # Layout XML, drawables, strings, etc.
+```
 
 ## How to Use (Setup)
 ### Clone the repository
 
-git clone https://github.com/your-username/netflex-app.git
+git clone https://github.com/thaildhe172591/Netflex-App.git
 
 ### Sample Endpoint Spec
 | Endpoint       | Method | Description     |

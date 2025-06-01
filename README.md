@@ -63,7 +63,7 @@ git clone https://github.com/thaildhe172591/Netflex-App.git
 | LiveData     | Observable data binding |
 | RecyclerView | Display lists           |
 
-### Libraries Used
+### Research/ Learned Used
 https://developer.android.com/topic/architecture
 https://square.github.io/retrofit/
 https://developer.android.com/topic/libraries/architecture/viewmodel

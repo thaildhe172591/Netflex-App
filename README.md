@@ -17,7 +17,6 @@ app/
 ├── adapter/                # RecyclerView adapters
 ├── model/                  # Movie, Genre, User, etc.         
 ├── network/                # ApiService, RetrofitClient
-├── utils/                  # Constants, SessionManager, etc.
 ├── viewmodel/              # ViewModels for each screen
 ├── utils/                  # Constants, SessionManager, etc.
 └── res/                    # Layout XML, drawables, strings, etc.

@@ -1,5 +1,5 @@
 package com.example.netflex.utils;
 
 public class Constants {
-    public static final String BASE_URL = "http://localhost:8080/api/";
+    public static final String BASE_URL = "https://api.cukhoaito.id.vn/api/v1/";
 }

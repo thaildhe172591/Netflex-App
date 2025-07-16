@@ -38,7 +38,7 @@ public class MovieListActivity extends AppCompatActivity {
     private MovieListAdapter movieAdapter;
     private Button btnNewest;
     private List<Integer> selectedGenreIds = new ArrayList<>();
-    private List<String> selectedCountryCodes = new ArrayList<>();
+    private String selectedCountryCode = "";
     private Integer selectedYear = null;
     private boolean sortNewest = false;
     private List<Movie> movieList = new ArrayList<>();
@@ -121,18 +121,11 @@ public class MovieListActivity extends AppCompatActivity {
                     }
 
                     CountryFilterAdapter adapter = new CountryFilterAdapter(filtered, selectedCountries -> {
-                        selectedCountryCodes = selectedCountries.stream()
-                                .map(Country::getCca3)
-                                .collect(Collectors.toList());
+                        Country selected = selectedCountries.get(0);
+                        selectedCountryCode = selected.getCca3() == null ? "" : selected.getCca3();
 
-                        String selectedNames = selectedCountries.stream()
-                                .map(c -> c.getName().getCommon())
-                                .collect(Collectors.joining(", "));
-
-                        Toast.makeText(MovieListActivity.this, "Selected: " + selectedNames, Toast.LENGTH_SHORT).show();
                         fetchMovies();
                     });
-
                     recyclerCountryFilter.setAdapter(adapter);
                 }
             }
@@ -161,9 +154,6 @@ public class MovieListActivity extends AppCompatActivity {
         String genreParam = selectedGenreIds != null && !selectedGenreIds.isEmpty()
                 ? selectedGenreIds.stream().map(String::valueOf).collect(Collectors.joining(","))
                 : "";
-        String countryParam = selectedCountryCodes != null && !selectedCountryCodes.isEmpty()
-                ? String.join(",", selectedCountryCodes)
-                : "";
 
         String sortBy = sortNewest ? "createdat_desc" : "title";
 
@@ -171,7 +161,7 @@ public class MovieListActivity extends AppCompatActivity {
                 .getFilteredMovies(
                         "",
                         genreParam,
-                        countryParam,
+                        selectedCountryCode,
                         "",
                         sortBy,
                         selectedYear,

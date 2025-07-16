@@ -31,11 +31,11 @@
             android:exported="false" />
 
         <activity
-            android:name=".view.MovieListActivity"
+            android:name=".view.SerieListActivity"
             android:exported="false" />
 
         <activity
-            android:name=".view.SerieListActivity"
+            android:name=".view.MovieListActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

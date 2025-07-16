@@ -41,7 +41,6 @@ public class CountryFilterAdapter extends RecyclerView.Adapter<CountryFilterAdap
         this.countries.addAll(countryList);
         this.listener = listener;
 
-        // default select 'All Country'
         this.selectedCountries.add(this.countries.get(0));
         listener.onCountryChange(new ArrayList<>(selectedCountries));
     }
@@ -65,26 +64,13 @@ public class CountryFilterAdapter extends RecyclerView.Adapter<CountryFilterAdap
         ));
 
         holder.btnCountry.setOnClickListener(v -> {
-            if (country.getCca3() == null) { // All Country
-                selectedCountries.clear();
-                selectedCountries.add(country);
-            } else {
-                selectedCountries.removeIf(c -> c.getCca3() == null); // remove 'All'
-
-                if (selectedCountries.contains(country)) {
-                    selectedCountries.remove(country);
-                } else {
-                    selectedCountries.add(country);
-                }
-
-                if (selectedCountries.isEmpty()) {
-                    selectedCountries.add(countries.get(0));
-                }
-            }
+            selectedCountries.clear();
+            selectedCountries.add(country);
 
             listener.onCountryChange(new ArrayList<>(selectedCountries));
             notifyDataSetChanged();
         });
+
     }
 
     @Override

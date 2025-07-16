@@ -1,0 +1,12 @@
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btnGenre"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#303040"
+    android:layout_marginEnd="8dp"
+    android:textSize="14sp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"/>

@@ -30,11 +30,11 @@
             android:exported="false" />
 
         <activity
-            android:name=".view.SerieListActivity"
+            android:name=".view.fragment.SerieListFragment"
             android:exported="false" />
 
         <activity
-            android:name=".view.MovieListActivity"
+            android:name=".view.fragment.MovieListFragment"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

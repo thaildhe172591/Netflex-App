@@ -1,4 +1,4 @@
-package com.example.netflex.view;
+package com.example.netflex.view.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.netflex.R;
 import com.example.netflex.adapter.CountryFilterAdapter;
 import com.example.netflex.adapter.GenreFilterAdapter;
-import com.example.netflex.adapter.SerieListAdapter;
+import com.example.netflex.adapter.MovieListAdapter;
 import com.example.netflex.adapter.YearFilterAdapter;
 import com.example.netflex.model.Country;
 import com.example.netflex.model.Genre;
-import com.example.netflex.model.Serie;
+import com.example.netflex.model.Movie;
 import com.example.netflex.model.PaginatedResponse;
 import com.example.netflex.network.ApiService;
 import com.example.netflex.network.CountryRetrofitClient;
@@ -32,20 +32,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SerieListActivity extends AppCompatActivity {
-    private RecyclerView recyclerGenreFilter, recyclerSeries, recyclerCountryFilter, recyclerYearFilter;
-    private SerieListAdapter serieAdapter;
+public class MovieListFragment extends AppCompatActivity {
+    private RecyclerView recyclerGenreFilter, recyclerMovies, recyclerCountryFilter, recyclerYearFilter;
+    private MovieListAdapter movieAdapter;
     private Button btnNewest;
     private List<Integer> selectedGenreIds = new ArrayList<>();
-    private List<String> selectedCountryCodes = new ArrayList<>();
+    private String selectedCountryCode = "";
     private Integer selectedYear = null;
     private boolean sortNewest = false;
-    private List<Serie> serieList = new ArrayList<>();
+    private List<Movie> movieList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_serie_list);
+        setContentView(R.layout.fragment_movie_list);
 
         recyclerGenreFilter = findViewById(R.id.recyclerGenreFilter);
         recyclerGenreFilter.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -60,21 +60,21 @@ public class SerieListActivity extends AppCompatActivity {
         btnNewest.setOnClickListener(v -> {
             sortNewest = !sortNewest;
             btnNewest.setText(sortNewest ? "Newest ↓" : "Default");
-            fetchSeries();
+            fetchMovies();
         });
         setupYearFilter();
         fetchGenres();
         fetchCountries();
 
-        recyclerSeries = findViewById(R.id.recyclerSeries);
-        recyclerSeries.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerMovies = findViewById(R.id.recyclerMovies);
+        recyclerMovies.setLayoutManager(new GridLayoutManager(this, 2));
 
-        serieAdapter = new SerieListAdapter(serieList, serie -> {
-            Toast.makeText(this, "Clicked: " + serie.getName(), Toast.LENGTH_SHORT).show();
+        movieAdapter = new MovieListAdapter(movieList, movie -> {
+            Toast.makeText(this, "Clicked: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
         });
-        recyclerSeries.setAdapter(serieAdapter);
+        recyclerMovies.setAdapter(movieAdapter);
 
-        fetchSeries();
+        fetchMovies();
     }
 
     private void fetchGenres() {
@@ -96,7 +96,7 @@ public class SerieListActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<PaginatedResponse<Genre>> call, Throwable t) {
-                        Log.e("SerieListActivity", "Error fetching genres: " + t.getMessage());
+                        Log.e("MovieListActivity", "Error fetching genres: " + t.getMessage());
                     }
                 });
     }
@@ -120,25 +120,18 @@ public class SerieListActivity extends AppCompatActivity {
                     }
 
                     CountryFilterAdapter adapter = new CountryFilterAdapter(filtered, selectedCountries -> {
-                        selectedCountryCodes = selectedCountries.stream()
-                                .map(Country::getCca3)
-                                .collect(Collectors.toList());
+                        Country selected = selectedCountries.get(0);
+                        selectedCountryCode = selected.getCca3() == null ? "" : selected.getCca3();
 
-                        String selectedNames = selectedCountries.stream()
-                                .map(c -> c.getName().getCommon())
-                                .collect(Collectors.joining(", "));
-
-                        Toast.makeText(SerieListActivity.this, "Selected: " + selectedNames, Toast.LENGTH_SHORT).show();
-                        fetchSeries();
+                        fetchMovies();
                     });
-
                     recyclerCountryFilter.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
-                Log.e("SerieListActivity", "Error fetching countries: " + t.getMessage());
+                Log.e("MovieListActivity", "Error fetching countries: " + t.getMessage());
             }
         });
     }
@@ -151,52 +144,49 @@ public class SerieListActivity extends AppCompatActivity {
         }
         YearFilterAdapter yearAdapter = new YearFilterAdapter(years, year -> {
             selectedYear = year;
-            fetchSeries();
+            fetchMovies();
         });
         recyclerYearFilter.setAdapter(yearAdapter);
     }
 
-    private void fetchSeries() {
+    private void fetchMovies() {
         String genreParam = selectedGenreIds != null && !selectedGenreIds.isEmpty()
                 ? selectedGenreIds.stream().map(String::valueOf).collect(Collectors.joining(","))
                 : "";
-        String countryParam = selectedCountryCodes != null && !selectedCountryCodes.isEmpty()
-                ? String.join(",", selectedCountryCodes)
-                : "";
 
-        String sortBy = sortNewest ? "lastAirDate_desc" : "name";
+        String sortBy = sortNewest ? "createdat_desc" : "title";
 
         RetrofitClient.getApiService()
-                .getFilteredSeries(
+                .getFilteredMovies(
                         "",
                         genreParam,
-                        countryParam,
+                        selectedCountryCode,
                         "",
                         sortBy,
                         selectedYear,
                         1,
                         20
                 )
-                .enqueue(new Callback<PaginatedResponse<Serie>>() {
+                .enqueue(new Callback<PaginatedResponse<Movie>>() {
                     @Override
-                    public void onResponse(Call<PaginatedResponse<Serie>> call, Response<PaginatedResponse<Serie>> response) {
+                    public void onResponse(Call<PaginatedResponse<Movie>> call, Response<PaginatedResponse<Movie>> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            serieList = response.body().getData();
-                            serieAdapter.setSerieList(serieList);
+                            movieList = response.body().getData();
+                            movieAdapter.setMovieList(movieList);
                         } else {
-                            Log.e("SerieListActivity", "Empty or error response: " + response.code());
+                            Log.e("MovieListActivity", "Empty or error response: " + response.code());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<PaginatedResponse<Serie>> call, Throwable t) {
-                        Log.e("SerieListActivity", "Error fetching series: " + t.getMessage());
+                    public void onFailure(Call<PaginatedResponse<Movie>> call, Throwable t) {
+                        Log.e("MovieListActivity", "Error fetching movies: " + t.getMessage());
                     }
                 });
     }
 
     private void onFilterChanged() {
-        fetchSeries();
+        fetchMovies();
     }
 
 }

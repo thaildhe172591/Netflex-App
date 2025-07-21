@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         tvErrorMessage = findViewById(R.id.tv_error_message);
         ivTogglePassword = findViewById(R.id.iv_toggle_password);
 
-        apiService = RetrofitClient.getApiService();
+        apiService = RetrofitClient.getApiService(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

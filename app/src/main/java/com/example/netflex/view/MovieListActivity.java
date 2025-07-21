@@ -79,7 +79,7 @@ public class MovieListActivity extends AppCompatActivity {
     }
 
     private void fetchGenres() {
-        RetrofitClient.getApiService()
+        RetrofitClient.getApiService(this)
                 .getGenres("", "name", 1, 20)
                 .enqueue(new Callback<PaginatedResponse<Genre>>() {
                     @Override
@@ -157,7 +157,7 @@ public class MovieListActivity extends AppCompatActivity {
 
         String sortBy = sortNewest ? "createdat_desc" : "title";
 
-        RetrofitClient.getApiService()
+        RetrofitClient.getApiService(this)
                 .getFilteredMovies(
                         "",
                         genreParam,

@@ -78,7 +78,7 @@ public class SerieListActivity extends AppCompatActivity {
     }
 
     private void fetchGenres() {
-        RetrofitClient.getApiService()
+        RetrofitClient.getApiService(this)
                 .getGenres("", "name", 1, 20)
                 .enqueue(new Callback<PaginatedResponse<Genre>>() {
                     @Override
@@ -166,7 +166,7 @@ public class SerieListActivity extends AppCompatActivity {
 
         String sortBy = sortNewest ? "lastAirDate_desc" : "name";
 
-        RetrofitClient.getApiService()
+        RetrofitClient.getApiService(this)
                 .getFilteredSeries(
                         "",
                         genreParam,

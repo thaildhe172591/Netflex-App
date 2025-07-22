@@ -1,8 +1,8 @@
 package com.example.netflex.network;
 
-import com.example.netflex.model.EpisodeDetail;
+import com.example.netflex.model.ForgotPasswordRequest;
 import com.example.netflex.model.Movie;
-import com.example.netflex.model.ReportRequest;
+import com.example.netflex.model.ResetPasswordRequest;
 import com.example.netflex.model.Serie;
 import com.example.netflex.model.MovieDetail;
 import com.example.netflex.model.FollowRequest;
@@ -72,6 +72,12 @@ public interface ApiService {
             @Query("pageindex") int pageIndex,
             @Query("pagesize") int pageSize
     );
+
+    @POST("auth/otp")
+    Call<Void> sendOtp(@Body ForgotPasswordRequest forgotPasswordRequest);
+
+    @POST("auth/reset-password")
+    Call<Void> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
     @GET("movies/{id}")
     Call<MovieDetail> getMovieDetails(@Path("id") long movieId);

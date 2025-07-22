@@ -1,7 +1,9 @@
 package com.example.netflex.network;
 
+import com.example.netflex.model.EpisodeDetail;
 import com.example.netflex.model.ForgotPasswordRequest;
 import com.example.netflex.model.Movie;
+import com.example.netflex.model.ReportRequest;
 import com.example.netflex.model.ResetPasswordRequest;
 import com.example.netflex.model.Serie;
 import com.example.netflex.model.MovieDetail;

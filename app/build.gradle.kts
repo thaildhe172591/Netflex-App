@@ -33,6 +33,7 @@ android {
 
 dependencies {
     implementation("io.github.carguo:gsyvideoplayer:11.0.0")
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation(libs.retrofit)
     implementation(libs.gsonconverter)
     implementation(libs.okhttp)

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (savedInstanceState == null) {
-//            switchFragment(new HomeFragment());
+            switchFragment(new HomeFragment());
 
 //            Fragment movieDetailFragment = new com.example.netflex.view.fragment.MovieDetailFragment();
 //            Bundle args = new Bundle();
@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
 //            movieDetailFragment.setArguments(args);
 //            switchFragment(movieDetailFragment);
 
-            Fragment serieDetailFragment = new com.example.netflex.view.fragment.SerieDetailFragment();
-            Bundle args = new Bundle();
-            args.putLong("series_id", 15);
-            serieDetailFragment.setArguments(args);
-            switchFragment(serieDetailFragment);
+//            Fragment serieDetailFragment = new com.example.netflex.view.fragment.SerieDetailFragment();
+//            Bundle args = new Bundle();
+//            args.putLong("series_id", 15);
+//            serieDetailFragment.setArguments(args);
+//            switchFragment(serieDetailFragment);
 
 //            topAppBar.setTitle("Movie Detail");
         }

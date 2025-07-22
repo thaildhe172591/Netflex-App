@@ -1,13 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/home_text"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/homeRootLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="24sp" />
-</FrameLayout>
+        android:padding="16dp">
+
+        <!-- Banner Carousel - Changed to ImageSlider -->
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/bannerImageSlider"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:iss_auto_cycle="true"
+            app:iss_delay="4000"
+            app:iss_period="1000" />
+
+        <!-- Movies Header -->
+        <TextView
+            android:id="@+id/txtMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movies"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/bannerImageSlider"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/btnSeeMoreMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See more"
+            android:background="@drawable/bg_see_more"
+            android:textColor="@android:color/black"
+            android:padding="6dp"
+            app:layout_constraintTop_toTopOf="@id/txtMovies"
+            app:layout_constraintBottom_toBottomOf="@id/txtMovies"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Movies RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMovies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/txtMovies"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- TV Series Header -->
+        <TextView
+            android:id="@+id/txtSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TV Series"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/rvMovies"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/btnSeeMoreSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See more"
+            android:background="@drawable/bg_see_more"
+            android:textColor="@android:color/black"
+            android:padding="6dp"
+            app:layout_constraintTop_toTopOf="@id/txtSeries"
+            app:layout_constraintBottom_toBottomOf="@id/txtSeries"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- TV Series RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSeries"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/txtSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

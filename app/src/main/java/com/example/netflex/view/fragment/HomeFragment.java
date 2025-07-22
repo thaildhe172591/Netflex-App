@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private RelatedSeriesAdapter seriesAdapter;
     private ApiService apiService;
     private List<SlideModel> slideModels;
-
+    private boolean isMovieLoaded = false, isSerieLoaded = false;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,7 +101,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupBanner() {
-        bannerImageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+        if (isMovieLoaded && isSerieLoaded) {
+            bannerImageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+        }
     }
 
     private void setupMovieList() {
@@ -114,12 +116,11 @@ public class HomeFragment extends Fragment {
                             movieAdapter.setMovies(list);
                             rvMovies.setLayoutManager(new GridLayoutManager(getContext(), 3, GridLayoutManager.HORIZONTAL, false));
                             rvMovies.setAdapter(movieAdapter);
-
+                            isMovieLoaded = true;
                             for (int i = 0; i < list.size(); i++) {
                                 var movie = list.get(i);
                                 slideModels.add(new SlideModel(movie.getPosterPath(), movie.getTitle(), ScaleTypes.CENTER_CROP));
                             }
-
                             setupBanner();
                         }
                     }
@@ -140,10 +141,12 @@ public class HomeFragment extends Fragment {
                             seriesAdapter.setSeries(list);
                             rvSeries.setLayoutManager(new GridLayoutManager(getContext(), 3));
                             rvSeries.setAdapter(seriesAdapter);
+                            isSerieLoaded = true;
                             for (int i = 0; i < list.size(); i++) {
                                 var serie = list.get(i);
                                 slideModels.add(new SlideModel(serie.getPosterPath(), serie.getName(), ScaleTypes.CENTER_CROP));
                             }
+                            setupBanner();
                         }
                     }
 

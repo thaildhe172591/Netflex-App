@@ -24,6 +24,7 @@ import com.example.netflex.model.SignInRequest;
 import com.example.netflex.model.SignInResponse;
 import com.example.netflex.network.ApiService;
 import com.example.netflex.network.RetrofitClient;
+import com.example.netflex.network.TokenManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         ivTogglePassword = findViewById(R.id.iv_toggle_password);
 
         apiService = RetrofitClient.getApiService(this);
+        var tokenManager = new TokenManager(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         SignInResponse signInResponse = response.body();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("response", signInResponse);
+                        tokenManager.saveTokens(signInResponse.getAccessToken(), signInResponse.getRefreshToken());
                         startActivity(intent);
                     } else {
                         handleApiErrors(response);

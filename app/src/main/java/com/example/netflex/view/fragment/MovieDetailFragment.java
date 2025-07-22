@@ -211,6 +211,7 @@ public class MovieDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

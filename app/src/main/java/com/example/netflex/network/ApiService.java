@@ -1,6 +1,8 @@
 package com.example.netflex.network;
 
+import com.example.netflex.model.ForgotPasswordRequest;
 import com.example.netflex.model.Movie;
+import com.example.netflex.model.ResetPasswordRequest;
 import com.example.netflex.model.Serie;
 
 import java.util.List;
@@ -66,5 +68,11 @@ public interface ApiService {
             @Query("pageindex") int pageIndex,
             @Query("pagesize") int pageSize
     );
+
+    @POST("auth/otp")
+    Call<Void> sendOtp(@Body ForgotPasswordRequest forgotPasswordRequest);
+
+    @POST("auth/reset-password")
+    Call<Void> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
 }

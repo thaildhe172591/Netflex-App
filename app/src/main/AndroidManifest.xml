@@ -25,16 +25,13 @@
             android:name=".MainActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".view.LoginActivity"
-            android:exported="false" />
 
         <activity
             android:name=".view.SerieListActivity"
             android:exported="false" />
 
         <activity
-            android:name=".view.MovieListActivity"
+            android:name=".view.LoginActivity"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

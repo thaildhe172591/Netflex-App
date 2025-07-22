@@ -37,12 +37,12 @@ public class EpisodeDetail {
     private String posterPath;
 
     @SerializedName("actors")
-    private List<String> actors;
+    private List<Actor> actors;
 
     public EpisodeDetail() {
     }
 
-    public EpisodeDetail(Long id, String name, Integer episodeNumber, String overview, String videoUrl, Integer runtime, Date airDate, Long seriesId, String seriesName, String posterPath, List<String> actors) {
+    public EpisodeDetail(Long id, String name, Integer episodeNumber, String overview, String videoUrl, Integer runtime, Date airDate, Long seriesId, String seriesName, String posterPath, List<Actor> actors) {
         this.id = id;
         this.name = name;
         this.episodeNumber = episodeNumber;
@@ -77,6 +77,6 @@ public class EpisodeDetail {
     public void setSeriesName(String seriesName) { this.seriesName = seriesName; }
     public String getPosterPath() { return posterPath; }
     public void setPosterPath(String posterPath) { this.posterPath = posterPath; }
-    public List<String> getActors() { return actors; }
-    public void setActors(List<String> actors) { this.actors = actors; }
+    public List<Actor> getActors() { return actors; }
+    public void setActors(List<Actor> actors) { this.actors = actors; }
 }

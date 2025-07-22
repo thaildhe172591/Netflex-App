@@ -1,5 +1,6 @@
 package com.example.netflex.network;
 
+import com.example.netflex.model.EpisodeDetail;
 import com.example.netflex.model.Movie;
 import com.example.netflex.model.ReportRequest;
 import com.example.netflex.model.Serie;
@@ -87,7 +88,7 @@ public interface ApiService {
     );
 
     @GET("episodes/{id}")
-    Call<Episode> getEpisodeDetails(@Path("id") long episodeId);
+    Call<EpisodeDetail> getEpisodeDetails(@Path("id") long episodeId);
 
     @POST("users/report")
     Call<Void> report(@Body ReportRequest reportRequest);

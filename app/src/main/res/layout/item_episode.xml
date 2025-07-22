@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="Episode 1: The Beginning"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

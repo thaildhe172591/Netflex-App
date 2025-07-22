@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.netflex.MainActivity;
 import com.example.netflex.R;
 import com.example.netflex.model.SignInRequest;
 import com.example.netflex.model.SignInResponse;
@@ -97,8 +98,12 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         tvErrorMessage.setVisibility(View.GONE);
+                        SignInResponse signInResponse = response.body();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("response", signInResponse);
+                        startActivity(intent);
                     } else {
                         handleApiErrors(response);
                     }

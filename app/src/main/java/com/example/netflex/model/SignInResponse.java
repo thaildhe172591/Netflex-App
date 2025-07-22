@@ -1,6 +1,8 @@
 package com.example.netflex.model;
 
-public class SignInResponse {
+import java.io.Serializable;
+
+public class SignInResponse implements Serializable {
     private String accessToken;
     private String refreshToken;
 

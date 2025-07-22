@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="netflix_red">#E50914</color>
+    <color name="dark_background">#101018</color>
+    <color name="dark_surface">#1A1A25</color>
+    <color name="dark_gray">#303040</color>
+    <color name="yellow">#FFCC00</color>
+    <color name="light_gray">#CCCCCC</color>
+    <color name="medium_gray">#AAAAAA</color>
 </resources>

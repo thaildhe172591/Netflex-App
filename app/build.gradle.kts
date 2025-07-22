@@ -32,9 +32,11 @@ android {
 }
 
 dependencies {
-
+    implementation("io.github.carguo:gsyvideoplayer:11.0.0")
     implementation(libs.retrofit)
     implementation(libs.gsonconverter)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

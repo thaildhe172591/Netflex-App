@@ -1,0 +1,50 @@
+package com.example.netflex.adapter;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.netflex.R;
+import com.example.netflex.model.Genre;
+
+import java.util.List;
+
+public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewHolder> {
+
+    private final List<Genre> genres;
+
+    public GenresAdapter(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    @NonNull
+    @Override
+    public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_genre, parent, false);
+        return new GenreViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull GenreViewHolder holder, int position) {
+        holder.textGenre.setText(genres.get(position).getName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return genres.size();
+    }
+
+    static class GenreViewHolder extends RecyclerView.ViewHolder {
+        TextView textGenre;
+
+        public GenreViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textGenre = itemView.findViewById(R.id.textGenre);
+        }
+    }
+}

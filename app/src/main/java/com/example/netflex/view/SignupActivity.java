@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignup = findViewById(R.id.btn_signup);
         tvSignin = findViewById(R.id.tv_signin);
 
-        apiService = RetrofitClient.getApiService();
+        apiService = RetrofitClient.getApiService(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.signup), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

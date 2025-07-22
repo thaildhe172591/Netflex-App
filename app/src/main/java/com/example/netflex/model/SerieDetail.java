@@ -5,13 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-public class MovieDetail {
-
+public class SerieDetail {
     @SerializedName("id")
     private long id;
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("name")
+    private String name;
 
     @SerializedName("overview")
     private String overview;
@@ -22,17 +21,30 @@ public class MovieDetail {
     @SerializedName("backdropPath")
     private String backdropPath;
 
-    @SerializedName("videoUrl")
-    private String videoUrl;
-
     @SerializedName("countryIso")
     private String countryIso;
 
-    @SerializedName("runtime")
-    private int runtime; // Assuming runtime is in minutes
+    @SerializedName("firstAirDate")
+    private Date firstAirDate;
 
-    @SerializedName("releaseDate")
-    private Date releaseDate; // Or Date, consider parsing
+    @SerializedName("lastAirDate")
+    private Date lastAirDate;
+
+    public int getTotalReviews() {
+        return totalReviews;
+    }
+
+    public void setTotalReviews(int totalReviews) {
+        this.totalReviews = totalReviews;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
 
     @SerializedName("averageRating")
     private double averageRating;
@@ -40,20 +52,30 @@ public class MovieDetail {
     @SerializedName("totalReviews")
     private int totalReviews;
 
-    @SerializedName("actors")
-    private List<Actor> actors;
-
     @SerializedName("keywords")
     private List<Keyword> keywords;
 
     @SerializedName("genres")
     private List<Genre> genres;
 
-    // Constructors
-    public MovieDetail() {
+    public SerieDetail() {
     }
 
-    // Getters and Setters
+    public SerieDetail(long id, String name, String overview, String posterPath, String backdropPath, String countryIso, Date firstAirDate, Date lastAirDate, double averageRating, int totalReviews, List<Keyword> keywords, List<Genre> genres) {
+        this.id = id;
+        this.name = name;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+        this.countryIso = countryIso;
+        this.firstAirDate = firstAirDate;
+        this.lastAirDate = lastAirDate;
+        this.averageRating = averageRating;
+        this.totalReviews = totalReviews;
+        this.keywords = keywords;
+        this.genres = genres;
+    }
+
     public long getId() {
         return id;
     }
@@ -62,12 +84,12 @@ public class MovieDetail {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOverview() {
@@ -94,14 +116,6 @@ public class MovieDetail {
         this.backdropPath = backdropPath;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
     public String getCountryIso() {
         return countryIso;
     }
@@ -110,44 +124,20 @@ public class MovieDetail {
         this.countryIso = countryIso;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public Date getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
+    public void setFirstAirDate(Date firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public Date getLastAirDate() {
+        return lastAirDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public int getTotalReviews() {
-        return totalReviews;
-    }
-
-    public void setTotalReviews(int totalReviews) {
-        this.totalReviews = totalReviews;
-    }
-
-    public List<Actor> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
+    public void setLastAirDate(Date lastAirDate) {
+        this.lastAirDate = lastAirDate;
     }
 
     public List<Keyword> getKeywords() {

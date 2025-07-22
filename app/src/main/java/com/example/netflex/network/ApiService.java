@@ -1,10 +1,13 @@
 package com.example.netflex.network;
 
 import com.example.netflex.model.Movie;
+import com.example.netflex.model.ReportRequest;
 import com.example.netflex.model.Serie;
-import com.example.netflex.model.MovieDetail; // Added import
-import com.example.netflex.model.FollowRequest; // Added import
-import com.example.netflex.model.ReviewRequest; // Added import
+import com.example.netflex.model.MovieDetail;
+import com.example.netflex.model.FollowRequest;
+import com.example.netflex.model.ReviewRequest;
+import com.example.netflex.model.SerieDetail; // Added import
+import com.example.netflex.model.Episode; // Added import
 
 import java.util.List;
 import com.example.netflex.model.SignInRequest;
@@ -15,7 +18,6 @@ import com.example.netflex.model.SignUpResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header; // Added import
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -73,10 +75,24 @@ public interface ApiService {
     @GET("movies/{id}")
     Call<MovieDetail> getMovieDetails(@Path("id") long movieId);
 
+    @GET("series/{id}")
+    Call<SerieDetail> getSerieDetails(@Path("id") long serieId);
 
+    @GET("episodes")
+    Call<PaginatedResponse<Episode>> getEpisodesForSeries(
+            @Query("seriesId") long seriesId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize,
+            @Query("search") String search
+    );
+
+    @GET("episodes/{id}")
+    Call<Episode> getEpisodeDetails(@Path("id") long episodeId);
+
+    @POST("users/report")
+    Call<Void> report(@Body ReportRequest reportRequest);
     @POST("users/follow")
     Call<Void> followMovie(@Body FollowRequest followRequest);
-
     @POST("users/unfollow")
     Call<Void> unfollowMovie(@Body FollowRequest unfollowRequest);
 

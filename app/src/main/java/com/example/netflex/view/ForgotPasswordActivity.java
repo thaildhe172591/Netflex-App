@@ -58,7 +58,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         tvLogin = findViewById(R.id.tv_login);
         tvSignup = findViewById(R.id.tv_signup);
 
-        apiService = RetrofitClient.getApiService();
+        apiService = RetrofitClient.getApiService(this);
 
         // Xử lý window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {

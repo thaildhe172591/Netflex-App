@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -14,7 +13,7 @@
         android:layout_width="60dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
-        android:background="#303040"/>
+        android:background="#303040" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -23,9 +22,10 @@
         android:layout_marginStart="12dp"
         android:orientation="vertical">
 
+        <!-- Title -->
         <TextView
             android:id="@+id/txtMovieTitle"
-            android:text="A Movie Title"
+            android:text="Movie Title"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -34,18 +34,20 @@
             android:maxLines="2"
             android:ellipsize="end" />
 
+        <!-- Release date + Country + Runtime -->
         <TextView
             android:id="@+id/txtMovieInfo"
-            android:text="16/10/2023 | Thriller US"
+            android:text="01/01/2025 | CHN | 171 min"
             android:textColor="#AAAAAA"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp" />
 
+        <!-- Overview -->
         <TextView
             android:id="@+id/txtMovieDescription"
-            android:text="This is overview of the movie."
+            android:text="Movie overview goes here..."
             android:textColor="#CCCCCC"
             android:textSize="14sp"
             android:layout_width="wrap_content"
@@ -53,7 +55,5 @@
             android:layout_marginTop="8dp"
             android:maxLines="2"
             android:ellipsize="end" />
-
     </LinearLayout>
-
 </LinearLayout>

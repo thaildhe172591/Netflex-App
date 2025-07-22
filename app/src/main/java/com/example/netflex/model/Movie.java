@@ -1,5 +1,7 @@
 package com.example.netflex.model;
 
+import java.util.List;
+
 public class Movie {
     private int id;
     private String title;
@@ -10,6 +12,38 @@ public class Movie {
     private String countryIso;
     private int runtime;
     private String releaseDate;
+    private List<Actor> actors;
+    private List<Integer> actorIds;
+
+    public Movie(int id, String title, String overview, String posterPath, String backdropPath, String videoUrl, String countryIso, int runtime, String releaseDate, List<Actor> actors, List<Integer> actorIds) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+        this.videoUrl = videoUrl;
+        this.countryIso = countryIso;
+        this.runtime = runtime;
+        this.releaseDate = releaseDate;
+        this.actors = actors;
+        this.actorIds = actorIds;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public List<Integer> getActorIds() {
+        return actorIds;
+    }
+
+    public void setActorIds(List<Integer> actorIds) {
+        this.actorIds = actorIds;
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

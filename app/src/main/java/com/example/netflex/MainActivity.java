@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.netflex.view.fragment.FavoriteFragment;
+import com.example.netflex.view.fragment.GenreDetailFragment;
 import com.example.netflex.view.fragment.HomeFragment;
 import com.example.netflex.view.fragment.ProfileFragment;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -50,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
 //            switchFragment(new HomeFragment());
 
-            Fragment movieDetailFragment = new com.example.netflex.view.fragment.MovieDetailFragment();
-            Bundle args = new Bundle();
-            args.putLong("movie_id", 1);
-            movieDetailFragment.setArguments(args);
-            switchFragment(movieDetailFragment);
+//            Fragment movieDetailFragment = new com.example.netflex.view.fragment.MovieDetailFragment();
+//            Bundle args = new Bundle();
+//            args.putLong("movie_id", 1);
+//            movieDetailFragment.setArguments(args);
+//            switchFragment(movieDetailFragment);
 
 //            Fragment serieDetailFragment = new com.example.netflex.view.fragment.SerieDetailFragment();
 //            Bundle args = new Bundle();
@@ -62,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
 //            serieDetailFragment.setArguments(args);
 //            switchFragment(serieDetailFragment);
 
+//            Fragment actorDetailFragment = new com.example.netflex.view.fragment.ActorDetailFragment();
+//            Bundle args = new Bundle();
+//            args.putLong("actor_id", 3);
+//            actorDetailFragment.setArguments(args);
+//            switchFragment(actorDetailFragment);
+
+//            Fragment genreDetailFragment = GenreDetailFragment.newInstance(1, "Action");
+//            switchFragment(genreDetailFragment);
+
+            Fragment movieListFragment = new com.example.netflex.view.fragment.NotificationFragment();
+            switchFragment(movieListFragment);
 //            topAppBar.setTitle("Movie Detail");
         }
     }

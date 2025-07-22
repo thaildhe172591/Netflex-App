@@ -1,6 +1,8 @@
 package com.example.netflex.network;
 
+import com.example.netflex.model.Actor;
 import com.example.netflex.model.Movie;
+import com.example.netflex.model.Notification;
 import com.example.netflex.model.ReportRequest;
 import com.example.netflex.model.Serie;
 import com.example.netflex.model.MovieDetail;
@@ -54,6 +56,7 @@ public interface ApiService {
             @Query("genres") String genres,
             @Query("countries") String countries,
             @Query("keywords") String keywords,
+            @Query("actors") String actors,
             @Query("sortby") String sortBy,
             @Query("year") Integer year,
             @Query("pageindex") int pageIndex,
@@ -98,5 +101,11 @@ public interface ApiService {
 
     @POST("users/review")
     Call<Void> reviewMovie(@Body ReviewRequest reviewRequest);
+
+    @GET("actors/{id}")
+    Call<Actor> getActorById(@Path("id") int actorId);
+
+    @GET("users/notifications")
+    Call<PaginatedResponse<Notification>> getMyNotifications();
 
 }

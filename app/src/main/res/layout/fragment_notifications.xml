@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:text="Trung tâm tin nhắn"
+            android:text="Notification"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:id="@+id/tvEmptyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chưa nhận được tin nhắn"
+            android:text="No notification received"
             android:textSize="14sp"
             android:textColor="#888888"
             android:layout_marginTop="8dp" />
@@ -67,7 +67,7 @@
             android:id="@+id/tvEmptyStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chưa có thông báo nào"
+            android:text="No announcements yet"
             android:textSize="12sp"
             android:textColor="#888888"
             android:layout_marginTop="4dp" />

@@ -20,7 +20,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private final OnMovieClickListener listener;
 
     public interface OnMovieClickListener {
-        void onClick(Movie movie);
+        void onMovieClick(Movie movie);
     }
 
     public MovieListAdapter(List<Movie> movieList, OnMovieClickListener listener) {
@@ -64,7 +64,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         public void bind(Movie movie, OnMovieClickListener listener) {
             title.setText(movie.getTitle());
             Glide.with(itemView.getContext()).load(movie.getPosterPath()).into(image);
-            itemView.setOnClickListener(v -> listener.onClick(movie));
+            itemView.setOnClickListener(v -> listener.onMovieClick(movie));
         }
     }
 }

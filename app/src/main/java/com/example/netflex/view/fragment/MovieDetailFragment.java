@@ -149,7 +149,7 @@ public class MovieDetailFragment extends Fragment {
         });
         var genres = detail.getGenres().stream().map(g -> String.valueOf(g.getId())).collect(Collectors.toList());
         apiService.getFilteredMovies(null, String.join(",", genres),
-                null, null, null, null, 1, 10)
+                null, null, null, null, null, 1, 10)
                 .enqueue(new Callback<PaginatedResponse<Movie>>() {
             @Override
             public void onResponse(Call<PaginatedResponse<Movie>> call, Response<PaginatedResponse<Movie>> response) {

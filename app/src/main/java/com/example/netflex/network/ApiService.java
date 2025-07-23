@@ -1,10 +1,12 @@
 package com.example.netflex.network;
 
 import com.example.netflex.model.EpisodeDetail;
+import com.example.netflex.model.Follow;
 import com.example.netflex.model.ForgotPasswordRequest;
 import com.example.netflex.model.Movie;
 import com.example.netflex.model.ReportRequest;
 import com.example.netflex.model.ResetPasswordRequest;
+import com.example.netflex.model.Review;
 import com.example.netflex.model.Serie;
 import com.example.netflex.model.MovieDetail;
 import com.example.netflex.model.FollowRequest;
@@ -101,11 +103,11 @@ public interface ApiService {
     @POST("users/report")
     Call<Void> report(@Body ReportRequest reportRequest);
     @POST("users/follow")
-    Call<Void> followMovie(@Body FollowRequest followRequest);
+    Call<Void> follow(@Body FollowRequest followRequest);
     @POST("users/unfollow")
-    Call<Void> unfollowMovie(@Body FollowRequest unfollowRequest);
-
+    Call<Void> unfollow(@Body FollowRequest unfollowRequest);
+    @GET("users/follow")
+    Call<Follow> getFollow(@Query("targetId") String targetId, @Query("targetType") String targetType);
     @POST("users/review")
-    Call<Void> reviewMovie(@Body ReviewRequest reviewRequest);
-
+    Call<Void> review(@Body ReviewRequest reviewRequest);
 }

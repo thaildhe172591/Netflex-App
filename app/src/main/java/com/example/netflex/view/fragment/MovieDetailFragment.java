@@ -24,11 +24,14 @@ import com.example.netflex.R;
 import com.example.netflex.adapter.ActorAdapter;
 import com.example.netflex.adapter.GenresAdapter;
 import com.example.netflex.adapter.RelatedMoviesAdapter;
+import com.example.netflex.model.Follow;
+import com.example.netflex.model.FollowRequest;
 import com.example.netflex.model.Genre;
 import com.example.netflex.model.Movie;
 import com.example.netflex.model.MovieDetail;
 import com.example.netflex.model.PaginatedResponse;
 import com.example.netflex.model.ReportRequest;
+import com.example.netflex.model.ReviewRequest;
 import com.example.netflex.network.ApiService;
 import com.example.netflex.network.RetrofitClient;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -56,6 +59,9 @@ public class MovieDetailFragment extends Fragment {
     private RecyclerView rvRelatedMovies;
     private RecyclerView rvGenres;
     private RelatedMoviesAdapter relatedMoviesAdapter;
+    private int totalReview = 0;
+    private float currentRating = 0f;
+    private boolean isFollowing = false;
 
     @Nullable
     @Override
@@ -81,11 +87,117 @@ public class MovieDetailFragment extends Fragment {
         long movieId = getArguments() != null ? getArguments().getLong("movie_id", 0L) : 0L;
         if (movieId > 0) {
             loadMovieDetails(movieId);
+            checkFollowStatus(movieId);
+            btnFollow.setOnClickListener(v -> toggleFollow(movieId));
             btnReport.setOnClickListener(v -> showReportDialog(movieId));
+            setupRatingBar(movieId);
         }
         return view;
     }
+    private void setupRatingBar(long movieId) {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (fromUser && rating > 0) {
+                    ReviewRequest reviewRequest = new ReviewRequest(String.valueOf(movieId), "movie", (int)rating);
+                    var newRating = (currentRating * totalReview + rating) / (totalReview + 1);
+                    textRatingValue.setText(String.format(Locale.getDefault(), "%.1f", newRating));
+                    apiService.review(reviewRequest).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Rating submitted successfully!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Failed to submit rating", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                            Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void checkFollowStatus(long movieId) {
+        apiService.getFollow(String.valueOf(movieId), "movie").enqueue(new Callback<Follow>() {
+            @Override
+            public void onResponse(@NonNull Call<Follow> call, @NonNull Response<Follow> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    isFollowing = true;
+                    updateFollowButton();
+                } else {
+                    isFollowing = false;
+                    updateFollowButton();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Follow> call, @NonNull Throwable t) {
+                isFollowing = false;
+                updateFollowButton();
+            }
+        });
+    }
+    private void updateFollowButton() {
+        if (isFollowing) {
+            btnFollow.setText("Unfollow");
+            btnFollow.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+        } else {
+            btnFollow.setText("Follow");
+            btnFollow.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        }
+    }
+
+    private void toggleFollow(long movieId) {
+        if (movieId == 0) return;
+
+        FollowRequest followRequest = new FollowRequest(String.valueOf(movieId), "movie");
+
+        if (isFollowing) {
+            // Unfollow
+            apiService.unfollow(followRequest).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        isFollowing = false;
+                        updateFollowButton();
+                        Toast.makeText(getContext(), "Unfollowed successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to unfollow", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Follow
+            apiService.follow(followRequest).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        isFollowing = true;
+                        updateFollowButton();
+                        Toast.makeText(getContext(), "Followed successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to follow", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
     private void loadMovieDetails(long movieId) {
         apiService.getMovieDetails(movieId).enqueue(new Callback<MovieDetail>() {
             @Override

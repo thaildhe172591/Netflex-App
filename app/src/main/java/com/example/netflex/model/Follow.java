@@ -2,21 +2,26 @@ package com.example.netflex.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ReviewRequest {
+import java.util.Date;
 
+public class Follow {
     @SerializedName("targetId")
     private String targetId;
-
     @SerializedName("targetType")
     private String targetType;
+    @SerializedName("userId")
+    private String userId;
+    @SerializedName("createdAt")
+    private Date createdAt;
 
-    @SerializedName("rating")
-    private int rating;
+    public Follow() {
+    }
 
-    public ReviewRequest(String targetId, String targetType, int rating) {
+    public Follow(String targetId, String targetType, String userId, Date createdAt) {
         this.targetId = targetId;
         this.targetType = targetType;
-        this.rating = rating;
+        this.userId = userId;
+        this.createdAt = createdAt;
     }
 
     public String getTargetId() {
@@ -35,11 +40,19 @@ public class ReviewRequest {
         this.targetType = targetType;
     }
 
-    public int getRating() {
-        return rating;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

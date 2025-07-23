@@ -9,4 +9,5 @@
     <color name="yellow">#FFCC00</color>
     <color name="light_gray">#CCCCCC</color>
     <color name="medium_gray">#AAAAAA</color>
+    <color name="colorPrimary">#6750a4</color>
 </resources>

@@ -6,8 +6,7 @@
     android:layout_marginBottom="12dp"
     android:layout_marginHorizontal="16dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="#1E1E1E">
+    app:cardElevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,6 +19,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:tint="#FFCC00"
+            android:src="@android:drawable/ic_dialog_alert"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NETFLEX"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:layout_toEndOf="@id/imgBell"
             android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5 min ago"
-            android:textColor="#AAAAAA"
+            android:textColor="#000000"
             android:textSize="12sp"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/imgBell" />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:text="Notification Title"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="15sp"
             android:layout_below="@id/imgBell"
             android:layout_marginTop="10dp" />
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Details about the notification"
-            android:textColor="#BBBBBB"
+            android:textColor="#000000"
             android:textSize="13sp"
             android:layout_below="@id/tvNotificationTitle"
             android:layout_marginTop="4dp"

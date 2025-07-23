@@ -120,12 +120,12 @@ public class GenreDetailFragment extends Fragment {
 
     private void updateToggleButtonUI() {
         if (showingMovies) {
-            btnMovie.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+            btnMovie.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
             btnMovie.setTextColor(getResources().getColor(R.color.black));
             btnSeries.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
             btnSeries.setTextColor(getResources().getColor(R.color.white));
         } else {
-            btnSeries.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+            btnSeries.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
             btnSeries.setTextColor(getResources().getColor(R.color.black));
             btnMovie.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
             btnMovie.setTextColor(getResources().getColor(R.color.white));

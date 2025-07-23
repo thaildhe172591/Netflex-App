@@ -92,8 +92,22 @@ public class HomeFragment extends Fragment {
         var btnSeeMoreMovies = view.findViewById(R.id.btnSeeMoreMovies);
         var btnSeeMoreSeries = view.findViewById(R.id.btnSeeMoreSeries);
 
-        btnSeeMoreMovies.setOnClickListener(v -> {});
-        btnSeeMoreSeries.setOnClickListener(v -> {});
+        btnSeeMoreMovies.setOnClickListener(v -> {
+            Fragment fragment = new com.example.netflex.view.fragment.MovieListFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+        btnSeeMoreSeries.setOnClickListener(v -> {
+            Fragment fragment = new com.example.netflex.view.fragment.SerieListFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         setupBanner();
         setupMovieList();
@@ -107,7 +121,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupMovieList() {
-        apiService.getFilteredMovies(null, null, null, null, "release_date.desc", null, 1, 9)
+        apiService.getFilteredMovies(null, null, null, null, null,"release_date.desc", null, 1, 9)
                 .enqueue(new Callback<PaginatedResponse<Movie>>(){
                     @Override
                     public void onResponse(Call<PaginatedResponse<Movie>> call, Response<PaginatedResponse<Movie>> response) {

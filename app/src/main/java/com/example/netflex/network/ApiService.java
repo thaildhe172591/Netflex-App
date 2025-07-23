@@ -61,6 +61,7 @@ public interface ApiService {
             @Query("genres") String genres,
             @Query("countries") String countries,
             @Query("keywords") String keywords,
+            @Query("actors") String actors,
             @Query("sortby") String sortBy,
             @Query("year") Integer year,
             @Query("pageindex") int pageIndex,

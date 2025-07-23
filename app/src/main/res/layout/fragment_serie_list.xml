@@ -6,19 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/tvSerieHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TV Serie"
-        android:background="#6750a4"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:padding="16dp" />
-
-    <!-- ScrollView for filters + serie grid -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

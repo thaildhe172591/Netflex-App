@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
 //            Fragment genreDetailFragment = GenreDetailFragment.newInstance(1, "Action");
 //            switchFragment(genreDetailFragment);
-
-            Fragment movieListFragment = new com.example.netflex.view.fragment.GenreDetailFragment();
-            switchFragment(movieListFragment);
+//
+//            Fragment movieListFragment = new com.example.netflex.view.fragment.GenreDetailFragment();
+//            switchFragment(movieListFragment);
 //            topAppBar.setTitle("Movie Detail");
         }
     }

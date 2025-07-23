@@ -212,7 +212,14 @@ public class MovieDetailFragment extends Fragment {
 
                     textReleaseInfo.setText(formattedDate+ " | " + detail.getRuntime() + " mins | " + detail.getCountryIso());
                     rvGenres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                    rvGenres.setAdapter(new GenresAdapter(detail.getGenres()));
+                    rvGenres.setAdapter(new GenresAdapter(detail.getGenres(), genre -> {
+                        Fragment genreDetailFragment = GenreDetailFragment.newInstance(genre.getId(), genre.getName());
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, genreDetailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }));
 
                     // Rating
                     float rating = (float) detail.getAverageRating();
@@ -224,9 +231,18 @@ public class MovieDetailFragment extends Fragment {
                             .load(detail.getPosterPath())
                             .into(imagePoster);
 
-                    ActorAdapter adapter = new ActorAdapter(detail.getActors());
                     rvActors.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                    rvActors.setAdapter(adapter);
+                    rvActors.setAdapter(new ActorAdapter(detail.getActors(), actor -> {
+                        Fragment actorDetailFragment = new com.example.netflex.view.fragment.ActorDetailFragment();
+                        Bundle args = new Bundle();
+                        args.putLong("actor_id", actor.getId());
+                        actorDetailFragment.setArguments(args);
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, actorDetailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }));
 
                     // Video
                     setupPlayer(detail.getVideoUrl());

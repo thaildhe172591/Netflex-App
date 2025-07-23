@@ -16,10 +16,24 @@ import com.example.netflex.model.Actor;
 import java.util.List;
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHolder> {
-    private final List<Actor> actors;
 
-    public ActorAdapter(List<Actor> actors) {
+    private List<Actor> actors;
+    private final OnActorClickListener listener;
+
+    // Interface giống OnMovieClickListener
+    public interface OnActorClickListener {
+        void onActorClick(Actor actor);
+    }
+
+    public ActorAdapter(List<Actor> actors, OnActorClickListener listener) {
         this.actors = actors;
+        this.listener = listener;
+    }
+
+
+    public void setActors(List<Actor> list) {
+        this.actors = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -33,15 +47,12 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
     @Override
     public void onBindViewHolder(@NonNull ActorViewHolder holder, int position) {
         Actor actor = actors.get(position);
-        holder.textActorName.setText(actor.getName());
-        Glide.with(holder.itemView.getContext())
-                .load(actor.getImage())
-                .into(holder.imageActor);
+        holder.bind(actor, listener);
     }
 
     @Override
     public int getItemCount() {
-        return actors.size();
+        return actors != null ? actors.size() : 0;
     }
 
     static class ActorViewHolder extends RecyclerView.ViewHolder {
@@ -52,6 +63,12 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
             super(itemView);
             imageActor = itemView.findViewById(R.id.imageActor);
             textActorName = itemView.findViewById(R.id.textActorName);
+        }
+
+        void bind(Actor actor, OnActorClickListener listener) {
+            textActorName.setText(actor.getName());
+            Glide.with(itemView.getContext()).load(actor.getImage()).into(imageActor);
+            itemView.setOnClickListener(v -> listener.onActorClick(actor));
         }
     }
 }

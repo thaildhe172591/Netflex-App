@@ -118,7 +118,17 @@ public class EpisodeDetailFragment extends Fragment {
 
                     List<Actor> actors = detail.getActors();
                     rvActors.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                    rvActors.setAdapter(new ActorAdapter(actors));
+                    rvActors.setAdapter(new ActorAdapter(actors, actor -> {
+                        Fragment actorDetailFragment = new com.example.netflex.view.fragment.ActorDetailFragment();
+                        Bundle args = new Bundle();
+                        args.putLong("actor_id", actor.getId());
+                        actorDetailFragment.setArguments(args);
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, actorDetailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }));
                     loadEpisodes(detail.getSeriesId(), episodeId);
                 } else {
                     Toast.makeText(getContext(), "Episode not found", Toast.LENGTH_SHORT).show();

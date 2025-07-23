@@ -215,7 +215,14 @@ public class SerieDetailFragment extends Fragment {
                     currentRating = rating;
                     totalReview = detail.getTotalReviews();
                     rvGenres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                    rvGenres.setAdapter(new GenresAdapter(detail.getGenres()));
+                    rvGenres.setAdapter(new GenresAdapter(detail.getGenres(), genre -> {
+                        Fragment genreDetailFragment = GenreDetailFragment.newInstance(genre.getId(), genre.getName());
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, genreDetailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }));
                     loadEpisodes(seriesId);
                     setupRelated(detail);
                 } else {

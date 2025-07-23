@@ -16,9 +16,16 @@ import java.util.List;
 public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewHolder> {
 
     private final List<Genre> genres;
+    private final OnGenreClickListener listener;
 
-    public GenresAdapter(List<Genre> genres) {
+    // Giao diện để xử lý sự kiện click
+    public interface OnGenreClickListener {
+        void onGenreClick(Genre genre);
+    }
+
+    public GenresAdapter(List<Genre> genres, OnGenreClickListener listener) {
         this.genres = genres;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,7 +38,8 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewH
 
     @Override
     public void onBindViewHolder(@NonNull GenreViewHolder holder, int position) {
-        holder.textGenre.setText(genres.get(position).getName());
+        Genre genre = genres.get(position);
+        holder.bind(genre, listener);
     }
 
     @Override
@@ -45,6 +53,11 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewH
         public GenreViewHolder(@NonNull View itemView) {
             super(itemView);
             textGenre = itemView.findViewById(R.id.textGenre);
+        }
+
+        public void bind(Genre genre, OnGenreClickListener listener) {
+            textGenre.setText(genre.getName());
+            itemView.setOnClickListener(v -> listener.onGenreClick(genre));
         }
     }
 }

@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#181818">
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
-        android:id="@+id/imgPoster"
-        android:layout_width="90dp"
-        android:layout_height="120dp"
+        android:id="@+id/imgMoviePoster"
+        android:layout_width="60dp"
+        android:layout_height="90dp"
         android:scaleType="centerCrop"
-        android:background="#333333" />
+        android:background="#303040"/>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginStart="12dp"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/txtMovieTitle"
             android:text="A Movie Title"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end" />
 
         <TextView
-            android:id="@+id/tvMeta"
-            android:text="16/10/2003  111mins  US"
+            android:id="@+id/txtMovieInfo"
+            android:text="16/10/2023 | Thriller US"
             android:textColor="#AAAAAA"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp" />
 
         <TextView
-            android:id="@+id/tvOverview"
-            android:text="This is overview of the movie..."
+            android:id="@+id/txtMovieDescription"
+            android:text="This is overview of the movie."
             android:textColor="#CCCCCC"
             android:textSize="14sp"
-            android:maxLines="2"
-            android:ellipsize="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="8dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
     </LinearLayout>
+
 </LinearLayout>

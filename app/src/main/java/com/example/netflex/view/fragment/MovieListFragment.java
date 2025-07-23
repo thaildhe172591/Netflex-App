@@ -1,11 +1,15 @@
-package com.example.netflex.view;
+package com.example.netflex.view.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.netflex.R;
 import com.example.netflex.adapter.CountryFilterAdapter;
 import com.example.netflex.adapter.GenreFilterAdapter;
-import com.example.netflex.adapter.MovieListAdapter;
 import com.example.netflex.adapter.MovieListAdapter;
 import com.example.netflex.adapter.YearFilterAdapter;
 import com.example.netflex.model.Country;
@@ -33,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieListActivity extends AppCompatActivity {
+public class MovieListFragment extends Fragment  {
     private RecyclerView recyclerGenreFilter, recyclerMovies, recyclerCountryFilter, recyclerYearFilter;
     private MovieListAdapter movieAdapter;
     private Button btnNewest;
@@ -44,42 +47,54 @@ public class MovieListActivity extends AppCompatActivity {
     private List<Movie> movieList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_list);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
 
-        recyclerGenreFilter = findViewById(R.id.recyclerGenreFilter);
-        recyclerGenreFilter.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerGenreFilter = view.findViewById(R.id.recyclerGenreFilter);
+        recyclerGenreFilter.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        recyclerCountryFilter = findViewById(R.id.recyclerCountryFilter);
-        recyclerCountryFilter.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerCountryFilter = view.findViewById(R.id.recyclerCountryFilter);
+        recyclerCountryFilter.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        recyclerYearFilter = findViewById(R.id.recyclerYearFilter);
-        recyclerYearFilter.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerYearFilter = view.findViewById(R.id.recyclerYearFilter);
+        recyclerYearFilter.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        btnNewest = findViewById(R.id.btnNewest);
+        btnNewest = view.findViewById(R.id.btnNewest);
         btnNewest.setOnClickListener(v -> {
             sortNewest = !sortNewest;
             btnNewest.setText(sortNewest ? "Newest ↓" : "Default");
             fetchMovies();
         });
+
         setupYearFilter();
         fetchGenres();
         fetchCountries();
 
-        recyclerMovies = findViewById(R.id.recyclerMovies);
-        recyclerMovies.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerMovies = view.findViewById(R.id.recyclerMovies);
+        recyclerMovies.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         movieAdapter = new MovieListAdapter(movieList, movie -> {
-            Toast.makeText(this, "Clicked: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+            Fragment fragment = new MovieDetailFragment();
+            Bundle args = new Bundle();
+            args.putLong("movie_id", movie.getId());
+            fragment.setArguments(args);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
+
         recyclerMovies.setAdapter(movieAdapter);
 
         fetchMovies();
+
+        return view;
     }
 
     private void fetchGenres() {
-        RetrofitClient.getApiService(this)
+        RetrofitClient.getApiService(requireContext())
                 .getGenres("", "name", 1, 20)
                 .enqueue(new Callback<PaginatedResponse<Genre>>() {
                     @Override
@@ -157,11 +172,13 @@ public class MovieListActivity extends AppCompatActivity {
 
         String sortBy = sortNewest ? "createdat_desc" : "title";
 
-        RetrofitClient.getApiService(this)
+
+        RetrofitClient.getApiService(requireContext())
                 .getFilteredMovies(
                         "",
                         genreParam,
                         selectedCountryCode,
+                        "",
                         "",
                         sortBy,
                         selectedYear,

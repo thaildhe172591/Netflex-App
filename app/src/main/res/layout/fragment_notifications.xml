@@ -2,21 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000000">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#121212"
+        android:background="#6750a4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tvTitle"
-            android:text="Trung tâm tin nhắn"
+            android:text="Notification"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -58,7 +57,7 @@
             android:id="@+id/tvEmptyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chưa nhận được tin nhắn"
+            android:text="No notification received"
             android:textSize="14sp"
             android:textColor="#888888"
             android:layout_marginTop="8dp" />
@@ -67,7 +66,7 @@
             android:id="@+id/tvEmptyStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chưa có thông báo nào"
+            android:text="No announcements yet"
             android:textSize="12sp"
             android:textColor="#888888"
             android:layout_marginTop="4dp" />
